@@ -1,36 +1,48 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
-import { connect } from "react-redux";
-import { fetchData, FETCH_SMURF_DATA_START } from "../actions/smurfActions";
-import { smurfReducer } from "../reducer/smurfsReducer";
+import { fetchData } from "../actions/smurfActions";
 
 const SmurfForm = (props) => {
+  const { register, handleSubmit } = useForm();
   const onSubmit = (smurfData) => {
     console.log(smurfData);
     const newSmurf = {
-      name: smurfData.Name,
-      age: smurfData.Age,
-      height: smurfData.Height,
+      name: smurfData.name,
+      age: smurfData.age,
+      height: smurfData.height,
     };
-    axios.post("http://localhost:3333/smurfs, newSmurf").then((res) => {
+    axios.post("http://localhost:3333/smurfs", newSmurf).then((res) => {
       fetchData();
     });
   };
+
   return (
-    <form>
-      <input type="text" name="Name" placeholder="name" />
-      <input type="number" name="Age" placeholder="age" />
-      <input type="number" name="Height" placeholder="height" />
-      <button type="Submit">Submit</button>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        placeholder="name"
+        ref={register}
+      />
+      <input
+        type="number"
+        name="age"
+        id="age"
+        placeholder="age"
+        ref={register}
+      />
+      <input
+        type="number"
+        name="height"
+        id="height"
+        placeholder="height"
+        ref={register}
+      />
+      <input onClick={() => window.location.reload(false)} type="submit" />
     </form>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    smurf_data: state.smurf_data,
-    is_loading_data: state.is_loading_data,
-  };
-};
-
-export default connect(mapStateToProps, { fetchData })(SmurfForm);
+export default SmurfForm;

@@ -30,6 +30,7 @@ export const smurfReducer = (state = intialState, action) => {
         is_loading_data: false,
         error: action.payload,
       };
+
     default:
       return state;
   }

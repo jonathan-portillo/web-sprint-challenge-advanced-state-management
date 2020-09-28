@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchData } from "../actions/smurfActions";
-import { smurfReducer } from "../reducer/smurfsReducer";
 
 const Smurfs = (props) => {
   console.log("App: Props: ", props);
@@ -10,7 +9,7 @@ const Smurfs = (props) => {
   }, []);
   return (
     <>
-      <h1>SMURF VILLAGE!!</h1>
+      <h1>SMURF VILLAGE INN!</h1>
       {props.is_loading_data ? <h1> Loading Smrufs...</h1> : null}
       {props.smurf_data.map((smurf) => {
         return (
